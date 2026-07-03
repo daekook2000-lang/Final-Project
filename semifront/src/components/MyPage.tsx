@@ -7,7 +7,7 @@ import { socialService } from "../service/socialService.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth, normalizeMember } from "../context/AuthContext.tsx";
 import { authService } from "../service/authService.ts";
-import { API_BASE_URL } from "../config/api";
+import { IMG_BASE_URL } from "../config/api";
 import PostsTab from "./mypage/PostsTab";
 import RecipesTab from "./mypage/RecipesTab";
 import LikedTab from "./mypage/LikedTab";
@@ -151,7 +151,7 @@ export default function MyPage() {
         <p className="text-lg font-semibold">로그인이 필요합니다.</p>
         <button
           onClick={() => navigate("/login")}
-          className="inline-flex items-center justify-center rounded-full bg-orange-600 px-6 py-3 text-white font-semibold hover:bg-orange-700 transition"
+          className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-3 text-white font-semibold hover:bg-orange-700 transition"
         >
           로그인하러 가기
         </button>
@@ -166,7 +166,7 @@ export default function MyPage() {
         </p>
         <button
           onClick={() => navigate("/")}
-          className="inline-flex items-center justify-center rounded-full bg-orange-600 px-6 py-3 text-white font-semibold hover:bg-orange-700 transition"
+          className="inline-flex items-center justify-center rounded-full bg-orange-500 px-6 py-3 text-white font-semibold hover:bg-orange-700 transition"
         >
           메인으로 이동
         </button>
@@ -185,7 +185,7 @@ export default function MyPage() {
             <div className="profile-avatar">
               {displayUser.profileImg ? (
                 <img
-                  src={`${API_BASE_URL}/${displayUser.profileImg}`}
+                  src={`${IMG_BASE_URL}/${displayUser.profileImg}`}
                   alt="프로필"
                   className="profile-avatar-img"
                 />

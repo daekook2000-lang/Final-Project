@@ -1,5 +1,6 @@
 package org.cloud.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,19 +18,18 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // 1. CORS 설정 적용
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            // 2. CSRF 보호 기능 끄기
             .csrf(csrf -> csrf.disable())
             
             // 3. URL별 접근 권한 설정하기
             .authorizeHttpRequests(auth -> auth
-            	// OPTIONS 메서드 무조건 허용
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 리퀘스트 허용하기
                 .requestMatchers("/api/member/**").permitAll()
                 .requestMatchers("/api/posts/**").permitAll()
                 .requestMatchers("/api/guestbook/**").permitAll()
@@ -62,12 +62,11 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // CORS 세부 규칙을 정의하는 Bean
     @Bean
     public CorsConfigurationSource corsConfigurationSource() { // ★ 안전하게 public 추가
         CorsConfiguration configuration = new CorsConfiguration();
         
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); 
+        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

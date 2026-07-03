@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { User } from "lucide-react";
 import { memberService } from "../service/memberService";
 import type { Member } from "../types/type";
-import { API_BASE_URL } from "../config/api";
+import { IMG_BASE_URL } from "../config/api";
 import { CHEF_TABS, type ChefEntry, type ChefTab } from "../exam/topChefData";
 
 interface Props {
@@ -53,7 +53,7 @@ export default function TopChefNav({ onClose }: Props) {
               onClick={() => setActiveTab(tab)}
               className={`w-full text-left px-4 py-2.5 text-sm transition-all border-l-2 ${
                 activeTab.id === tab.id
-                  ? "border-l-orange-500 text-orange-600 font-semibold bg-orange-50"
+                  ? "border-l-orange-500 text-orange-500 font-semibold bg-orange-50"
                   : "border-l-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50"
               }`}
             >
@@ -98,7 +98,7 @@ function NavChefCard({ chef, member, onClick }: NavChefCardProps) {
       <div className="w-17 h-17 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden border-2 border-orange-200">
         {member?.profileImg ? (
           <img
-            src={`${API_BASE_URL}/${member.profileImg}`}
+            src={`${IMG_BASE_URL}/${member.profileImg}`}
             alt={member.nickname}
             className="w-full h-full object-cover"
           />

@@ -5,7 +5,7 @@ import { useAuth, normalizeMember } from "../context/AuthContext.tsx";
 import { memberService } from "../service/memberService.ts";
 import { memberBgImageService } from "../service/memberBgImageService.ts";
 import type { Member } from "../types/type.ts";
-import { API_BASE_URL } from "../config/api";
+import { IMG_BASE_URL } from "../config/api";
 
 export default function MyInfo() {
   const navigate = useNavigate();
@@ -181,12 +181,12 @@ export default function MyInfo() {
               />
             ) : member.profileImg ? (
               <img
-                src={`${API_BASE_URL}/${member.profileImg}`}
+                src={`${IMG_BASE_URL}/${member.profileImg}`}
                 alt="프로필"
                 className="w-full h-full object-cover"
               />
             ) : (
-              <User className="w-12 h-12 text-orange-600" />
+              <User className="w-12 h-12 text-orange-500" />
             )}
           </div>
         </label>
@@ -281,7 +281,7 @@ export default function MyInfo() {
           </button>
           <button
             onClick={handleSave}
-            className="bg-orange-600 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-orange-700"
+            className="bg-orange-500 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-orange-700"
           >
             저장
           </button>
@@ -342,7 +342,7 @@ export default function MyInfo() {
                       <div
                         className="bg-preview-box"
                         style={{
-                          backgroundImage: `url(${API_BASE_URL}/${img.imgUrl})`,
+                          backgroundImage: `url(${IMG_BASE_URL}/${img.imgUrl})`,
                           backgroundSize: 'cover',
                           backgroundPosition: 'center',
                         }}

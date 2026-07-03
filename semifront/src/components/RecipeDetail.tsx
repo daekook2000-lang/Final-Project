@@ -31,7 +31,7 @@ import {
   RECIPE_IMAGE,
   ReviewImage,
 } from "../types/type";
-import { API_BASE_URL } from "../config/api";
+import { IMG_BASE_URL } from "../config/api";
 
 export default function RecipeDetail() {
   const { recipeId } = useParams<{ recipeId: string }>();
@@ -294,7 +294,7 @@ export default function RecipeDetail() {
         <p className="text-xl mb-4">레시피를 찾을 수 없습니다.</p>
         <button
           onClick={() => navigate(-1)}
-          className="px-6 py-2 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600"
+          className="px-6 py-2 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-500"
         >
           뒤로 가기
         </button>
@@ -304,7 +304,7 @@ export default function RecipeDetail() {
 
   const info = recipe.recipeInfo;
   const heroImg = info?.thumbImgUrl
-    ? `${API_BASE_URL}/${info.thumbImgUrl}`
+    ? `${IMG_BASE_URL}/${info.thumbImgUrl}`
     : null;
   const hasGallery = images.length > 0;
 
@@ -323,7 +323,7 @@ export default function RecipeDetail() {
       {hasGallery ? (
         <div className="relative w-full h-72 md:h-96 rounded-2xl overflow-hidden shadow-lg bg-gray-100">
           <img
-            src={`${API_BASE_URL}/${images[currentImageIndex].imgUrl}`}
+            src={`${IMG_BASE_URL}/${images[currentImageIndex].imgUrl}`}
             alt={`${info.recipeNmKo} ${currentImageIndex + 1}`}
             className="w-full h-full object-cover"
             onError={(e) => {
@@ -401,7 +401,7 @@ export default function RecipeDetail() {
                 {recipe.tags.map((tag) => (
                   <span
                     key={tag.tagId}
-                    className="px-3 py-1 bg-orange-50 text-orange-600 border border-orange-100 rounded-full text-sm font-medium"
+                    className="px-3 py-1 bg-orange-50 text-orange-500 border border-orange-100 rounded-full text-sm font-medium"
                   >
                     {tag.tagName}
                   </span>
@@ -471,7 +471,7 @@ export default function RecipeDetail() {
         >
           {writer?.profileImg ? (
             <img
-              src={`${API_BASE_URL}/${writer.profileImg}`}
+              src={`${IMG_BASE_URL}/${writer.profileImg}`}
               alt={writer.nickname}
               className="w-11 h-11 rounded-full object-cover shrink-0 border border-gray-200"
               onError={(e) => {
@@ -501,7 +501,7 @@ export default function RecipeDetail() {
               ([groupName, items]) => (
                 <div key={groupName}>
                   <div className="px-5 py-2.5 bg-orange-50 border-b border-gray-100">
-                    <span className="text-sm font-semibold text-orange-600">
+                    <span className="text-sm font-semibold text-orange-500">
                       {groupName}
                     </span>
                   </div>
@@ -562,7 +562,7 @@ export default function RecipeDetail() {
                 step.stepImgUrl === "/resources/static/image/base.png";
               const stepImg = isDefault
                 ? null
-                : `${API_BASE_URL}/${step.stepImgUrl}`;
+                : `${IMG_BASE_URL}/${step.stepImgUrl}`;
               return (
                 <div
                   key={step.cookingNo}
@@ -654,7 +654,7 @@ export default function RecipeDetail() {
                   className="shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-100"
                 >
                   <img
-                    src={`${API_BASE_URL}/${img.imageUrl}`}
+                    src={`${IMG_BASE_URL}/${img.imageUrl}`}
                     alt="후기 사진"
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -691,7 +691,7 @@ export default function RecipeDetail() {
                       >
                         {profile?.profileImg ? (
                           <img
-                            src={`${API_BASE_URL}/${profile.profileImg}`}
+                            src={`${IMG_BASE_URL}/${profile.profileImg}`}
                             alt={profile.nickname}
                             className="w-9 h-9 rounded-full object-cover border border-gray-200 hover:ring-2 hover:ring-orange-300 transition-all"
                             onError={(e) => {
@@ -794,7 +794,7 @@ export default function RecipeDetail() {
                         <button
                           onClick={() => handleReviewEditSave(review)}
                           disabled={isSubmitting || !editContent.trim()}
-                          className="px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                          className="px-4 py-1.5 bg-orange-500 hover:bg-orange-500 text-white font-semibold rounded-full text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                         >
                           {isSubmitting ? "저장 중..." : "저장"}
                         </button>
@@ -817,7 +817,7 @@ export default function RecipeDetail() {
                                 className="shrink-0 w-40 h-40 rounded-lg overflow-hidden bg-gray-100"
                               >
                                 <img
-                                  src={`${API_BASE_URL}/${img.imageUrl}`}
+                                  src={`${IMG_BASE_URL}/${img.imageUrl}`}
                                   alt="후기 사진"
                                   className="w-full h-full object-cover"
                                   onError={(e) => {
@@ -982,7 +982,7 @@ export default function RecipeDetail() {
               <button
                 onClick={handleReviewSubmit}
                 disabled={isSubmitting || !reviewContent.trim()}
-                className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm"
+                className="px-6 py-2 bg-orange-500 hover:bg-orange-500 text-white font-semibold rounded-full disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 {isSubmitting ? "등록 중..." : "등록"}
               </button>

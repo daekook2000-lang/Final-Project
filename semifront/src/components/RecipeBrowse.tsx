@@ -41,14 +41,7 @@ export default function RecipeBrowse() {
   const page = Number(searchParams.get("page") ?? "1");
 
   // 로컬 UI 상태만 (입력 중인 텍스트 등)
-  const [nameInput, setNameInput] = useState(() => {
-    const current = new URLSearchParams(window.location.search);
-    if (!current.toString()) {
-      const saved = sessionStorage.getItem("browseParams");
-      if (saved) return new URLSearchParams(saved).get("name") ?? "";
-    }
-    return current.get("name") ?? "";
-  });
+  const [nameInput, setNameInput] = useState(debouncedName);
   const [ingredientInput, setIngredientInput] = useState("");
   const [tagInput, setTagInput] = useState("");
   const [recipes, setRecipes] = useState<Recipe_Info[]>([]);
@@ -92,18 +85,6 @@ export default function RecipeBrowse() {
       .then((res) => setTags(res.data))
       .catch(() => setTags([]));
   }, []);
-
-  useEffect(() => {
-    const paramsStr = searchParams.toString();
-    if (paramsStr) sessionStorage.setItem("browseParams", paramsStr);
-  }, [searchParams]);
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem("browseParams");
-    if (saved && !searchParams.toString()) {
-      setSearchParams(new URLSearchParams(saved), { replace: true });
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const userId = user?.id;
 
@@ -240,7 +221,6 @@ export default function RecipeBrowse() {
     setNameInput("");
     setTagInput("");
     setIngredientInput("");
-    sessionStorage.removeItem("browseParams");
     setSearchParams(new URLSearchParams(), { replace: true });
   };
 
@@ -269,9 +249,7 @@ export default function RecipeBrowse() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">레시피 검색</h1>
-
-      <div className="bg-white rounded-2xl shadow-md p-6 mb-8 space-y-4">
+      <div className="bg-white rounded-2xl shadow-md p-6 mb-2 space-y-4">
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -286,7 +264,7 @@ export default function RecipeBrowse() {
           </div>
           <button
             onClick={handleSearch}
-            className="px-6 py-3 bg-orange-600 text-white rounded-xl font-semibold hover:bg-orange-700 transition-colors flex items-center gap-2"
+            className="px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-700 transition-colors flex items-center gap-2"
           >
             <Search className="w-4 h-4" />
             검색
@@ -306,20 +284,20 @@ export default function RecipeBrowse() {
                 <button
                   key={lv}
                   onClick={() => setSelectedLevel(lv)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${selectedLevel === lv ? "bg-orange-600 text-white border-orange-600" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${selectedLevel === lv ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
                 >
                   {LEVEL_LABELS[lv]}
                 </button>
               ))}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-3">
               <label className="block text-sm font-medium text-gray-600 mb-1">
                 <Clock3 className="w-4 h-4 inline mr-1" />
                 조리시간
               </label>
 
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-3 flex-wrap">
                 {[
                   { value: "all", label: "전체" },
                   { value: "under10", label: "뚝딱요리" },
@@ -332,7 +310,7 @@ export default function RecipeBrowse() {
                     onClick={() => setCookingTimeFilter(item.value)}
                     className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
                       cookingTimeFilter === item.value
-                        ? "bg-orange-600 text-white border-orange-600"
+                        ? "bg-orange-500 text-white border-orange-500"
                         : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"
                     }`}
                   >
@@ -349,17 +327,10 @@ export default function RecipeBrowse() {
                 태그
               </label>
             </div>
-            <input
-              type="text"
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-              placeholder="태그 검색..."
-              className="w-full px-3 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 text-sm mb-2"
-            />
             <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
               <button
                 onClick={clearTags}
-                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedTagIds.length === 0 ? "bg-orange-600 text-white border-orange-600" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedTagIds.length === 0 ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
               >
                 전체
               </button>
@@ -367,7 +338,7 @@ export default function RecipeBrowse() {
                 <button
                   key={tag.tagId}
                   onClick={() => toggleTag(tag)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedTagIds.includes(tag.tagId) ? "bg-orange-600 text-white border-orange-600" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
+                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedTagIds.includes(tag.tagId) ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600 border-gray-300 hover:border-orange-400"}`}
                 >
                   {tag.tagName}
                 </button>
@@ -393,7 +364,7 @@ export default function RecipeBrowse() {
               <button
                 type="button"
                 onClick={addIngredient}
-                className="px-3 py-2 bg-orange-100 text-orange-600 rounded-xl hover:bg-orange-200 transition-colors"
+                className="px-3 py-2 bg-orange-100 text-orange-500 rounded-xl hover:bg-orange-200 transition-colors"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -431,13 +402,13 @@ export default function RecipeBrowse() {
         )}
       </div>
 
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <p className="text-gray-600 text-sm">
           {isLoading ? (
             "검색 중..."
           ) : (
             <>
-              총 <span className="font-bold text-orange-600">{total}</span>개의
+              총 <span className="font-bold text-orange-500">{total}</span>개의
               레시피
             </>
           )}
@@ -520,7 +491,7 @@ export default function RecipeBrowse() {
               className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium transition-all ${
                 p === page
                   ? "bg-orange-500 text-white"
-                  : "border border-gray-200 text-gray-600 hover:border-orange-400 hover:text-orange-500"
+                  : "border border-gray-200 text-gray-600 hover:border-orange-500 hover:text-orange-500"
               }`}
             >
               {p}
