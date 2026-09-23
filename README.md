@@ -180,3 +180,35 @@ Git에서 충돌이 발생한 부분을 확인하고 각 브랜치의 변경 내
 각 팀원이 개발한 기능을 하나의 프로젝트로 정상적으로 병합했으며, 공통 파일 수정과 코드 병합 과정에서 팀원 간 사전 소통의 중요성을 경험
 
 ---
+
+## 주요 화면
+
+### 회원 관리
+
+<img width="1536" height="944" alt="ChatGPT Image 2026년 9월 17일 오후 10_48_09" src="https://github.com/user-attachments/assets/5d09991e-9ac9-46f0-aa6d-18615f91dcd2" />
+
+로그인, 회원정보 조회·수정 및 회원 탈퇴 기능을 제공
+
+### 복합 조건 검색
+
+<img width="1536" height="1024" alt="ChatGPT Image 2026년 9월 18일 오전 01_02_14" src="https://github.com/user-attachments/assets/c23e6062-8aa5-4c0b-ad78-ccccfb077ce0" />
+
+난이도, 조리시간, 태그, 재료 등 여러 조건을 조합하여 원하는 레시피를 검색
+
+### 레시피 정렬
+
+<img width="1381" height="1069" alt="ChatGPT Image 2026년 9월 19일 오후 10_30_05" src="https://github.com/user-attachments/assets/9253327a-eddb-423d-83fa-19b771608363" />
+
+최신순, 인기순, 스크랩순, 조회순 중 원하는 기준으로 레시피를 정렬
+
+### 통합 검색창
+
+<img width="1536" height="827" alt="ChatGPT Image 2026년 9월 19일 오후 11_30_00" src="https://github.com/user-attachments/assets/7277046a-bbc5-431f-bc48-2d1f48f0d951" />
+
+하나의 검색창에서 레시피와 회원을 동시에 검색하고 각각 구분된 결과를 확인
+
+### 레시피 스크랩
+
+<img width="1312" height="873" alt="ChatGPT Image 2026년 9월 20일 오후 05_28_55" src="https://github.com/user-attachments/assets/fb843ff8-8f27-49da-91ea-339d75b59c89" />
+
+관심 있는 레시피를 스크랩하고 마이페이지에서 저장한 레시피를 다시 확인
