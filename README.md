@@ -212,3 +212,62 @@ Git에서 충돌이 발생한 부분을 확인하고 각 브랜치의 변경 내
 <img width="1312" height="873" alt="레시피 스크랩" src="https://github.com/user-attachments/assets/3b9db2ca-fe44-432c-9357-23c5d9176cf1" />
 
 관심 있는 레시피를 스크랩하고 마이페이지에서 저장한 레시피를 다시 확인
+
+## 프로젝트 구조
+
+### Frontend
+
+```text
+src/
+├── api/            
+├── components/     
+├── config/         
+├── context/        
+├── service/       
+├── types/          
+├── utils/          
+├── App.jsx         
+├── main.jsx        
+└── routes.tsx      
+```
+
+### Backend
+
+```text
+src/main/
+├── java/
+│   ├── org.cloud/
+│   ├── org.cloud.configuration/  
+│   ├── org.cloud.control/         
+│   ├── org.cloud.dto/             
+│   ├── org.cloud.mapper/          
+│   └── org.cloud.service/         
+│
+└── resources/
+    ├── mapper/                    
+    ├── static/                    
+    └── application.properties      
+```
+
+### 시스템 구성
+
+```text
+React
+  │
+  │ REST API
+  ▼
+Spring Boot
+  │
+  ├── Controller
+  ▼
+Service
+  │
+  ▼
+MyBatis Mapper
+  │
+  ▼
+MySQL
+
+AWS S3
+└── 프로필 이미지 저장
+```
