@@ -2,7 +2,7 @@ import api from "../api/axios";
 import { Recipe_Info } from "../types/type";
 
 const likeService = {
-  /** 좋아요 토글 → { liked: boolean, likeCount: number } */
+  /** 좋아요 토글 → { liked: boolean, likeCount: number } */ 
   toggle: async (userId: string, recipeCode: string) => {
     const res = await api.post("/like/toggle", { userId, recipeCode });
     return res.data as { liked: boolean; likeCount: number };
